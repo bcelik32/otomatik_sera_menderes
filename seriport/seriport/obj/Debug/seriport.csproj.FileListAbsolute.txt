@@ -1,0 +1,10 @@
+C:\Users\musta\source\repos\seriport\seriport\bin\Debug\seriport.exe.config
+C:\Users\musta\source\repos\seriport\seriport\bin\Debug\seriport.exe
+C:\Users\musta\source\repos\seriport\seriport\bin\Debug\seriport.pdb
+C:\Users\musta\source\repos\seriport\seriport\obj\Debug\seriport.csproj.AssemblyReference.cache
+C:\Users\musta\source\repos\seriport\seriport\obj\Debug\seriport.Form1.resources
+C:\Users\musta\source\repos\seriport\seriport\obj\Debug\seriport.Properties.Resources.resources
+C:\Users\musta\source\repos\seriport\seriport\obj\Debug\seriport.csproj.GenerateResource.cache
+C:\Users\musta\source\repos\seriport\seriport\obj\Debug\seriport.csproj.CoreCompileInputs.cache
+C:\Users\musta\source\repos\seriport\seriport\obj\Debug\seriport.exe
+C:\Users\musta\source\repos\seriport\seriport\obj\Debug\seriport.pdb

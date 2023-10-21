@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "seriport", "seriport\seriport.csproj", "{873CC408-8E57-44AD-AFDC-E4974554B1E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{873CC408-8E57-44AD-AFDC-E4974554B1E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{873CC408-8E57-44AD-AFDC-E4974554B1E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{873CC408-8E57-44AD-AFDC-E4974554B1E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{873CC408-8E57-44AD-AFDC-E4974554B1E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {14BBA254-FC18-4382-B48D-DF44EC1ECDBB}
+	EndGlobalSection
+EndGlobal
