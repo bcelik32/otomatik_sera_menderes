@@ -9,21 +9,49 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
+using Timer = System.Windows.Forms.Timer;
 
 namespace seriport
 {
     public partial class Form1 : Form
     {
+        private Timer timer1 = new Timer();
         string veri;
         int adet = 0;
         bool s_fandurum = false;
         bool so_fandurum = false;
         bool catiperde_durum = false;
-        bool oto = false;
+        bool oto = true;
         bool sulama = false;
+        int gpaci=90;
+        
         public Form1()
         {
             InitializeComponent();
+            timer1.Interval = 1000; // 1000 milisaniye (1 saniye)
+            timer1.Tick += Timer_Tick;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            veri = serialPort1.ReadLine();
+            if (veri.Contains("a"))
+            {
+                label5.Text = veri;
+            }
+            if (veri.Contains("b"))
+            {
+                label6.Text = veri;
+            }
+            if (veri.Contains("c"))
+            {
+                label7.Text = veri;
+            }
+            if (veri.Contains("d"))
+            {
+                label8.Text = veri;
+            }
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -33,11 +61,11 @@ namespace seriport
                 comboBox1.Items.Add(port);
 
             serialPort1.DataReceived += new SerialDataReceivedEventHandler(SerialPort1_DataReceived);
+            
         }
         private void SerialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            veri = serialPort1.ReadLine();
-            this.Invoke(new EventHandler(displayData_event));
+           
         }
 
         private void displayData_event(object sender, EventArgs e)
@@ -61,7 +89,7 @@ namespace seriport
             {
                 if (comboBox1.Text == "        Seri Port Seç")
                 {
-                    MessageBox.Show("Lütfen port seçiniz", "Uyarı");
+                    durum_text.Text = "Lütfen Bir Port Seçiniz.";
 
                 }
                 else
@@ -70,11 +98,12 @@ namespace seriport
                     serialPort1.BaudRate = 9600;
                     serialPort1.Open();
                     durum_text.Text = "Durum: Bağlı";
-                    MessageBox.Show("Seri Port Bağlandı", "Başarılı");
+                   // MessageBox.Show("Seri Port Bağlandı", "Başarılı");
                     button5.Enabled = true;
                     button2.Enabled = true;
                     button1.Enabled = false;
 
+                    //timer1.Start();
 
                 }
 
@@ -93,6 +122,7 @@ namespace seriport
 
         private void button2_Click(object sender, EventArgs e)
         {
+            timer1.Stop();
             serialPort1.Close();
             durum_text.Text = "Durum: Bağlı Değil";
             button1.Enabled = true;
@@ -102,6 +132,8 @@ namespace seriport
             button6.Enabled = false;
             button2.Enabled = false;
             trackBar1.Enabled = false;
+            numericUpDown1.Enabled = false;
+            button8.Enabled = false;
             button5.Enabled = false;
             so_fandurum = false;
             s_fandurum = false;
@@ -109,7 +141,7 @@ namespace seriport
             button4.BackColor = Color.Red;
             button3.BackColor = Color.Red;
             button6.BackColor = Color.Red;
-            MessageBox.Show("Bağlantı Kesildi", "Başarılı");
+            //MessageBox.Show("Bağlantı Kesildi", "Başarılı");
 
         }
 
@@ -138,6 +170,38 @@ namespace seriport
 
         private void button5_Click(object sender, EventArgs e)
         {
+            if (oto == true)
+            {
+                oto = false;
+                button5.Text = "Manuel Mod";
+                button3.Enabled = true;
+                button4.Enabled = true;
+                button6.Enabled = true;
+                button7.Enabled = true;
+                trackBar1.Enabled = true;
+                button8.Enabled = true;
+                numericUpDown1.Enabled = true;
+                serialPort1.Write("m");
+            }
+            else
+            {
+                oto = true;
+                button5.Text = "Otomatik Mod";
+                button3.Enabled = false;
+                button4.Enabled = false;
+                button6.Enabled = false;
+                trackBar1.Enabled = false;
+                button8.Enabled = false;
+                button7.Enabled = false;
+                numericUpDown1.Enabled = false;
+                so_fandurum = false;
+                s_fandurum = false;
+                catiperde_durum = false;
+                button4.BackColor = Color.Red;
+                button3.BackColor = Color.Red;
+                serialPort1.Write("o");
+
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -166,42 +230,7 @@ namespace seriport
 
         }
 
-        private void button5_Click_1(object sender, EventArgs e)
-        {
-            if (oto == false)
-            {
-                oto = true;
-                button5.Text = "Otomatik Mod";
-                button3.Enabled = false;
-                button4.Enabled = false;
-                button6.Enabled = false;
-                trackBar1.Enabled = false;
-                button8.Enabled = false;
-                button7.Enabled = false;
-                numericUpDown1.Enabled = false;
-                so_fandurum = false;
-                s_fandurum = false;
-                catiperde_durum = false;
-                button4.BackColor = Color.Red;
-                button3.BackColor = Color.Red;
-                serialPort1.Write("o");
-            }
-            else
-            {
-                button5.Text = "Manuel Mod";
-                oto = false;
-                button3.Enabled = true;
-                button4.Enabled = true;
-                button6.Enabled = true;
-                button7.Enabled = true;
-                trackBar1.Enabled = true;
-                button8.Enabled = true;
-                numericUpDown1.Enabled = true;
-                serialPort1.Write("m");
-
-            }
-        }
-
+       
         private void button6_Click(object sender, EventArgs e)
         {
             if (catiperde_durum == false)
@@ -279,6 +308,18 @@ namespace seriport
         private void frame_kontrol_Enter(object sender, EventArgs e)
         {
 
+        }
+
+       
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            gpaci = trackBar1.Value;
+            serialPort1.Write("g");
+            serialPort1.WriteLine(gpaci.ToString());
+            label3.Text =gpaci.ToString();
+            Thread.Sleep(100);
+            Application.DoEvents();
         }
     }
 }
